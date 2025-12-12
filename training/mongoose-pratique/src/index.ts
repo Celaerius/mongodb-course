@@ -1,5 +1,5 @@
 import { connect } from 'mongoose';
-import { MovieModel } from './schemas/movies';
+import { MovieModel } from './schemas/movies_2.ts';
 
 async function init() {
     const connection = await connect('mongodb://root:test123@127.0.0.1:27017/sample_mflix?authSource=admin');
@@ -14,7 +14,7 @@ async function init() {
     const movie2 = new MovieModel({
         title: 'TRIPTOK & cie',
         genres: ['Comedy', 'Romance'],
-        rated: 'G',
+        rated: 'PG-18',
         fullplot: 'Une histoire touchante d\' un patron qui adopte 10 débiles mentaux qui ont des tripes et beaucoup de tocs.'
     });
 

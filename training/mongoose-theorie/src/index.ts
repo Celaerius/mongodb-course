@@ -3,7 +3,10 @@ import { UserModel } from "./schema.ts";
 
 async function init() {
     try { 
-        let connection = await mongoose.connect('mongodb://root:test123@localhost:27017/sample_mflix?authSource=admin');
+        mongoose.set('debug', true);
+        let connection = await mongoose.connect('mongodb://root:test123@localhost:27017/sample_mflix?authSource=admin', {
+            
+        });
 
         console.log("Connecté à " + connection.connection.db?.databaseName);
     } catch(e) {
@@ -11,18 +14,31 @@ async function init() {
     }
 
     const users = await UserModel.findOne({
-        name: "Bowen Marsh"
+        email: "sean_bean@gameofthron.es"
     });
 
-    const newUser = new UserModel({
-        name: "Amaury Deflorenne",
-        email: "amaury@triptyk.eu",
-        password: "pudipudi1997"
+    users?.overwrite({
+        lastName: 'Amaury',
+        firstName: 'Deflorenne',
+        email: "sean_bean@gameofthron.es",
+        password: "123456789"
     });
 
-    await newUser.save();
+    console.log("Full name via virtual:", users?.fullName);
 
-    console.log(users);
+    users.fullName = "Amaury Deflorenne";
+
+    await users.save();
+
+    console.log("Full name via method:", users);
+
+
+
+   /*  await UserModel.findAndSave(users._id.toString(), {
+        lastName: 'Amaury',
+        firstName: 'Deflorenne',
+        email: "sean_bean@gameofthron.es"
+    }); */
 }
 
 init();
