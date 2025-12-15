@@ -147,8 +147,9 @@ client.on(Events.MessageReactionAdd, async (reaction, user) => {
         case '😂':
             reaction.message.channel.send(`${user.tag} trouve ça hilarant 😂`);
             break;
-    } if (reaction.emoji.name) {
-        reaction.message.channel.send(`${user.tag} a réagi avec ${reaction.emoji.name}`);
+        default:
+            reaction.message.channel.send(`${user.tag} a réagi avec ${reaction.emoji.name}`);
+            break;
     }
 });
 
